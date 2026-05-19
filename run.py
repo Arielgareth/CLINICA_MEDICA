@@ -1,4 +1,4 @@
-from flask import Flask, request, rediredct, url_for
+from flask import Flask, request, redirect, url_for
 from controlers import consultas_controler, medicos_controler, pacientes_controler
 from database import db
 import os
