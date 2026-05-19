@@ -27,9 +27,9 @@ def inject_active_path():
 @app.route('/')
 def home():
     try:
-        return redirect(url_for('consulta_bp.create'))
+        return redirect(url_for('consulta_bp.index'))
     except Exception:
-        return redirect('/consultas/create')
+        return redirect('/consultas/')
 
 if __name__ == '__main__':
     with app.app_context():
