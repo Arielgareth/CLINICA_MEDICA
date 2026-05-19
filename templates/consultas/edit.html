@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{%block title %} Editar Consulta {% endblock %}
+
+{% block content %}
+    <h1>Editar Consulta</h1>
+    <form action="{{ url_for('consulta.edit', consulta_id=consulta.id_consulta) }}" method="POST">
+
+        <div class="mb-3">
+            <label for="" class="form-label">Fecha</label>
+            <input type="date" class="form-control" name="fecha" value="{{ consulta.fecha.strftime('%Y-%m-%d') }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Diagnostico</label>
+            <input type="text" class="form-control" name="diagnostico" value="{{ consulta.diagnostico }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Tratamiento</label>
+            <input type="text" class="form-control" name="tratamiento" value="{{ consulta.tratamiento }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Medico</label>
+            <select name="id_medico" class="form-control" required>
+                <option value="">Seleccione un médico</option>
+                {% for medico in medicos %}
+                    <option value="{{ medico.id }}" {% if medico.id == consulta.id_medico %}selected{% endif %}>
+                        {{ medico.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Paciente</label>
+            <select name="id_paciente" class="form-control" required>
+                <option value="">Seleccione un paciente</option>
+                {% for paciente in pacientes %}
+                    <option value="{{ paciente.id }}" {% if paciente.id == consulta.id_paciente %}selected{% endif %}>
+                        {{ paciente.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Actualizar Consulta</button>
+            
+    </form>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %} Consultas {% endblock %}
+
+{% block content %}
+    <h1>Consultas</h1>
+
+    <a href="{{ url_for('consulta.export_excel') }}"
+       class="btn btn-success mb-3">
+       Exportar Excel
+    </a>
+
+    <a href="{{ url_for('consulta.create') }}" class="btn btn-success mb-3">Nueva Consulta</a>
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Diagnóstico</th>
+            <th>Tratamiento</th>
+            <th>Paciente</th>
+            <th>Médico</th>
+            <th></th>
+            <th></th>
+            
+        </tr>
+        {% for item in consultas %}
+        <tr>
+            <td>{{ item.id_consulta }}</td>
+            <td>{{ item.fecha.strftime('%d/%m/%Y') }}</td>
+            <td>{{ item.diagnostico }}</td>
+            <td>{{ item.tratamiento }}</td>
+            <td>{{ item.paciente.nombre }}</td>
+            <td>{{ item.medico.nombre }}</td>
+            <td>
+                <a href="{{ url_for('consulta.edit', consulta_id=item.id_consulta) }}" class="btn btn-warning btn-sm">Editar</a>
+            </td>
+            <td>
+                <form action="{{ url_for('consulta.delete', consulta_id=item.id_consulta) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar esta consulta?');">
+                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                </form>
+        </tr>
+        {% endfor %}
+    </table>
+        
+{% endblock %}

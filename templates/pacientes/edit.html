@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{%block title %} Editar Paciente {% endblock %}
+
+{% block content %}
+    <h1>Editar Paciente</h1>
+    <form action="{{ url_for('paciente.edit', paciente_id=paciente.id) }}" method="POST">
+
+        <div class="mb-3">
+            <label for="" class="form-label">Nombre</label>
+            <input type="text" class="form-control" name="nombre" value="{{ paciente.nombre }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Edad</label>
+            <input type="number" class="form-control" name="edad" value="{{ paciente.edad }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Direccion</label>
+            <input type="text" class="form-control" name="direccion" value="{{ paciente.direccion }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Telefono</label>
+            <input type="text" class="form-control" name="telefono" value="{{ paciente.telefono }}" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Actualizar Paciente</button>
+            
+    </form>
+{% endblock %}
