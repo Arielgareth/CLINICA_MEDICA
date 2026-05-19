@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, rediredct, url_for
 from controlers import consultas_controler, medicos_controler, pacientes_controler
 from database import db
 import os
@@ -15,6 +15,9 @@ app.register_blueprint(medicos_controler.medico_bp)
 app.register_blueprint(pacientes_controler.paciente_bp)
 app.register_blueprint(consultas_controler.consulta_bp)
 
+with app.app_context():
+    db.create_all()
+
 @app.context_processor
 def inject_active_path():
     def is_active(path):
@@ -23,7 +26,10 @@ def inject_active_path():
 
 @app.route('/')
 def home():
-    return "<h1>APLICACION CLINICA</h1>"
+    try:
+        return redirect(url_for('consulta_bp.create'))
+    except Exception:
+        return redirect('/consultas/create')
 
 if __name__ == '__main__':
     with app.app_context():
